@@ -18,7 +18,7 @@ RUN cd /opt && \
 #Get singh-man IDE plugin setup
 RUN mkdir -p ~/.config/nvim && \
     git clone https://github.com/singh-man/nvim-IDE.git ~/.config/nvim
-RUN nvim --headless PlugInstall +q
+RUN nvim --headless +PlugInstall +q
 
 #User root
 RUN apt update -y && apt upgrade -y

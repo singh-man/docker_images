@@ -1,27 +1,9 @@
-# docker build --target nvim -t sa .
-# docker build -t sa .
-FROM node:17-alpine AS nvim
+# docker build -t sf .
+FROM node:alpine
 LABEL maintainer="Manish Singh"
 
-RUN apk add --update bash git curl util-linux
-RUN apk add neovim
-# Neovim setup
-# RUN cd /opt && \
-#     curl -L https://github.com/neovim/neovim/releases/download/v0.6.1/nvim-linux64.tar.gz -s -o /opt/a.tar.gz && \
-#     tar -xzf /opt/a.tar.gz && \
-#     rm /opt/a.tar.gz && \
-#     echo "alias nvim='/opt/nvim-linux64/bin/nvim'" >> ~/myAlias && \
-RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' && \
-    cd -
- 
-#Get singh-man IDE plugin setup
-RUN mkdir -p ~/.config/nvim && \
-    git clone https://github.com/singh-man/nvim-IDE.git ~/.config/nvim
-# RUN nvim --headless PlugInstall +q
-
-FROM nvim
 RUN apk update && apk upgrade
+RUN apk add --update bash git curl util-linux 
 #MISC tools
 RUN apk add openssh-client openssh-server
 RUN apk add git nmap unzip zip wget curl ripgrep elinks poppler-utils nnn trash-cli sxiv
