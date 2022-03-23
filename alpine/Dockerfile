@@ -1,5 +1,5 @@
 # docker build -t sa .
-FROM node:alpine
+FROM alpine:edge
 LABEL maintainer="Manish Singh"
 
 RUN apk update && apk upgrade
@@ -15,6 +15,7 @@ RUN apk add python3 py3-pip && pip3 install pytest
 #     apk-get install lazygit -y
  
 RUN apk add ffmpeg
+RUN apk add nodejs npm yarn
 RUN apk add openjdk11
 RUN apk add maven
 RUN echo "source ~/myAlias" >> ~/.bashrc

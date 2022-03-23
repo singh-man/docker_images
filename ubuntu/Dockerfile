@@ -27,7 +27,7 @@ RUN usermod -a -G root,manish manish
 RUN apt autoremove
 CMD [ "nvim" ]
 RUN echo "DO --> PlugInstall after nvim and install lsp's as needed"
-RUN echo "use to run as host user -->  'docker run --rm -it --user=\"$(id -u):$(id -g)\" -v <src>:<dest> snvim bash' do remember to volume mount the dirs as needed!!"
+RUN echo "use to run as host user -->  'docker run --rm -it --user=\"$(id -u):$(id -g)\" -v <src>:<dest> sunvim bash' do remember to volume mount the dirs as needed!!"
 
 FROM sunvim as su
 #User root
