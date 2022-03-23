@@ -1,4 +1,6 @@
-FROM node:17
+# docker build --target sunvim -t sunvim .
+# docker build --target su -t su .
+FROM node:17 as sunvim
 LABEL maintainer="Manish Singh"
 
 #TZdata to run in this way for non-interactive; tzdata needed by openssh-server
@@ -18,8 +20,16 @@ RUN cd /opt && \
 #Get singh-man IDE plugin setup
 RUN mkdir -p ~/.config/nvim && \
     git clone https://github.com/singh-man/nvim-IDE.git ~/.config/nvim
-RUN nvim --headless +PlugInstall +q
+# RUN nvim --headless +PlugInstall +q
+RUN echo "source ~/myAlias" >> ~/.bashrc
+RUN useradd manish
+RUN usermod -a -G root,manish manish
+RUN apt autoremove
+CMD [ "nvim" ]
+RUN echo "DO --> PlugInstall after nvim and install lsp's as needed"
+RUN echo "use to run as host user -->  'docker run --rm -it --user=\"$(id -u):$(id -g)\" -v <src>:<dest> snvim bash' do remember to volume mount the dirs as needed!!"
 
+FROM sunvim as su
 #User root
 RUN apt update -y && apt upgrade -y
 #MISC tools

@@ -1,7 +1,7 @@
-# docker build -f Dockerfile.utils --target su-1 -t s1 .
-# docker build -f Dockerfile.utils --target su-2 -t s2 .
-# docker build -f Dockerfile.utils -t s2 .
-FROM ubuntu:20.04 AS su-base
+# docker build -f Dockerfile.utils --target subase -t subase .
+# docker build -f Dockerfile.utils --target su1 -t su1 .
+# docker build -f Dockerfile.utils --target su2 -t su2 .
+FROM ubuntu:20.04 AS subase
 LABEL maintainer="Manish Singh"
 #User root
 RUN apt update -y && apt upgrade -y
@@ -11,11 +11,11 @@ RUN apt-get -y install tzdata # not needed for node image
 RUN useradd manish
 RUN usermod -a -G root,manish manish
 
-FROM su-base AS su-1
+FROM subase AS su1
 RUN apt install openssh-client openssh-server nmap -y
 
-FROM su-base AS su-2
+FROM subase AS su2
 RUN apt install pandoc maxima -y
 
 # ENTRYPOINT ["/bin/sh"]
-CMD ["echo use docker run --rm --user=\"$(id -u):$(id -g)\" -t ubuntu/s/u ssh|nmap|pandoc|maxima"]
+CMD ["echo use docker run --rm --user=\"$(id -u):$(id -g)\" <su1|su2> ssh|nmap|pandoc|maxima"]

@@ -1,4 +1,4 @@
-# docker build -t sf .
+# docker build -t sa .
 FROM node:alpine
 LABEL maintainer="Manish Singh"
 
@@ -18,8 +18,8 @@ RUN apk add ffmpeg
 RUN apk add openjdk11
 RUN apk add maven
 RUN echo "source ~/myAlias" >> ~/.bashrc
-#Add user and add to groups to run with local volume mount
+# Add user and add to groups to run with local volume mount
 # RUN adduser -S manish -u 1000 -G users
 # RUN adduser -S msingh -G users
-RUN echo "change the users as needed --> docker run --rm --user=\"$(id -u):$(id -g)\" -t sa"
+RUN echo "change the users as needed --> docker run --rm --user=\"$(id -u):$(id -g)\" -v <src>:<dest> -t sa"
 CMD ["bash"]
