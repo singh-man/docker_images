@@ -8,11 +8,8 @@ RUN apk add --update bash git curl util-linux
 RUN apk add openssh-client openssh-server
 RUN apk add git nmap unzip zip wget curl ripgrep elinks poppler-utils nnn trash-cli sxiv
 RUN apk add python3 py3-pip && pip3 install pytest
+RUN apk add lazygit
 # RUN apk add pandoc maxima
-# RUN apk-get install software-properties-common -y && \
-#     add-apk-repository ppa:lazygit-team/release -y && \
-#     apk-get update -y && \
-#     apk-get install lazygit -y
  
 RUN apk add ffmpeg
 RUN apk add nodejs npm yarn
